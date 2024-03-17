@@ -1,112 +1,105 @@
-# React homework template
+## Phonebook Application
 
-Цей проект був створений за допомогою
-[Create React App](https://github.com/facebook/create-react-app). Для знайомства
-і налаштування додаткових можливостей
-[звернися до документації](https://facebook.github.io/create-react-app/docs/getting-started).
+This is a simple React application for managing contacts in a phonebook.
 
-## Створення репозиторію за шаблоном
+### Features
 
-Використовуй цей репозиторій організації GoIT як шаблон для створення репозиторію
-свого проєкта. Для цього натисни на кнопку `«Use this template»` і вибери опцію
-`«Create a new repository»`, як показано на зображенні.
+- Add new contacts with a name and phone number.
+- Display a list of contacts.
+- Filter contacts by name.
+- Responsive design for various screen sizes.
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
+### Components
 
-На наступному кроці відкриється сторінка створення нового репозиторію. Заповни поле
-його імені, переконайся що репозиторій публічний, після чого натисни кнопку
-`«Create repository from template»`.
+- **App**: The root component managing the state of contacts and filter.
+- **ContactForm**: Component for adding new contacts.
+- **ContactList**: Component for displaying the list of contacts.
+- **Filter**: Component for filtering contacts by name.
 
-![Creating repo from a template step 2](./assets/template-step-2.png)
+### Technologies Used
 
-Після того як репозиторій буде створено, необхідно перейти в налаштування
-створеного репозиторію на вкладку `Settings` > `Actions` > `General` як
-показано на зображенні.
+- React
+- Redux Toolkit
+- React Redux
+- Redux Persist
+- CSS Modules
 
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
+#### Phonebook Contact Storage
 
-Проскроливши сторінку до самого кінця, у секції `«Workflow permissions»` вибери
-опцію `«Read and write permissions»` і постав галочку в чекбоксі. Це
-необхідно для автоматизації процесу деплою проєкту.
+In this updated version, the phonebook application now utilizes Redux Toolkit
+along with Redux Persist for storing contacts in local storage.
 
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
+- Redux Toolkit is used for managing the Redux state.
+- Redux Persist is used to save an array of contacts to local storage.
 
-Тепер у тебе є особистий репозиторій проекту, зі структурою файлів і папок
-репозиторію-шаблону. Далі працюй із ним як із будь-яким іншим особистим репозиторієм,
-клонуй його собі на комп'ютер, пиши код, роби комміти і відправляй їх на
-GitHub.
+The Redux state is structured as follows:
 
-## Підготовка до роботи
-
-1. Переконайся що на комп'ютері встановлено LTS-версія Node.js.
-   [Завантаж і встанови](https://nodejs.org/en/) її якщо необхідно.
-2. Встанови базові залежності проєкту командою `npm install`.
-3. Запусти режим розробки, виконавши команду `npm start`.
-4. Перейди в браузері за адресою [http://localhost:3000](http://localhost:3000).
-   Ця сторінка буде автоматично перезавантажуватися після збереження змін у файлах проєкту.
-
-## Деплой
-
-Продакшн версія проєкту буде автоматично проходити лінтинг, збиратися і
-деплоїтися на GitHub Pages, у гілку `gh-pages`, щоразу, коли оновлюється
-гілка `main`. Наприклад, після прямого пушу або прийнятого пул-реквесту. Для цього
-необхідно у файлі `package.json` відредагувати поле `homepage`, замінивши
-`your_username` і `your_repo_name` на свої, і відправити зміни на GitHub.
-
-```json
-"homepage": "https://your_username.github.io/your_repo_name/"
+```javascript
+{
+  contacts: {
+    items: [],
+    isLoading: false,
+    error: null
+  },
+  filter: ""
+}
 ```
 
-Далі необхідно зайти в налаштування GitHub-репозиторію (`Settings` > `Pages`) і
-виставити роздачу продакшн-версії файлів із папки `/root` гілки `gh-pages`, якщо
-це не було зроблено автоматично.
+Redux Toolkit's `configureStore()` is used to create the Redux store. The state
+is managed using `createSlice()` to define reducers for saving and deleting a
+contact, as well as updating the filter.
 
-![GitHub Pages settings](./assets/repo-settings.png)
+React components are connected to the Redux logic using hooks provided by the
+`react-redux` library.
 
-### Статус деплоя
+Lifecycle methods in React are utilized for automatically saving contacts to
+local storage when a contact is added or deleted. Upon loading the app,
+contacts, if any, are retrieved from local storage and stored in the application
+state.
 
-Статус деплою крайнього коміту відображається іконкою біля його ідентифікатора.
+### Backend
 
-- **Жовтий колір** - виконується збірка і деплой проєкту.
-- **Зелений колір** - деплой завершився успішно.
-- **Червоний колір** - під час лінтингу, сборки або деплою сталася помилка.
+Create your own personalized backend for development with the mockapi.io UI
+service. Sign up with your GitHub account. Create a contacts resource to get the
+`/contacts` endpoint. Use the resource constructor and describe the contact
+object as in the illustration.
 
-Детальнішу інформацію про статус можна подивитися, клікнувши на іконку, і
-у вікні, що випадає, перейти за посиланням `Details`.
+#### Contact schema
 
-![Deployment status](./assets/deploy-status.png)
-
-### Жива сторінка
-
-Через якийсь час, зазвичай кілька хвилин, живу сторінку можна буде подивитися
-за адресою, вказаною у відредагованій властивості `homepage`. Наприклад, ось
-посилання на живу версію для цього репозиторію
-[https://goitacademy.github.io/react-homework-template](https://goitacademy.github.io/react-homework-template).
-
-Якщо відкривається порожня сторінка, переконайся, що у вкладці `Console` немає помилок
-пов'язаних із неправильними шляхами до CSS і JS файлів проєкту (**404**). Швидше 
-за все у тебе неправильне значення властивості `homepage` у файлі `package.json`.
-
-### Маршрутизація
-
-Якщо додаток використовує бібліотеку `react-router-dom` для маршрутизації,
-необхідно додатково налаштувати компонент `<BrowserRouter>`, передавши у пропе
-`basename` точну назву твого репозиторію. Слеш на початку рядка обов'язковий.
-
-```jsx
-<BrowserRouter basename="/your_repo_name">
-  <App />
-</BrowserRouter>
+```javascript
+{
+  name: String,
+  phone: String
+}
 ```
 
-## Як це працює
+#### State form
 
-![How it works](./assets/how-it-works.png)
+Add loading and error indicator handling to the Redux state. To do this, change
+the state form.
 
-1. Після кожного пушу в гілку `main` GitHub-репозиторія, запускається спеціальний
-   скрипт (GitHub Action) з файла `.github/workflows/deploy.yml`.
-2. Усі файли репозиторію копіюються на сервер, де проект ініціалізується і
-   проходить лінтинг і збірку перед деплоєм.
-3. Якщо всі кроки пройшли успішно, зібрана продакшн-версія файлів проєкту
-   відправляється в гілку `gh-pages`. В іншому випадку, в лозі виконання
-   скрипта буде вказано в чому проблема.
+```javascript
+{
+  contacts: {
+    items: [],
+    isLoading: false,
+    error: null
+  },
+  filter: ""
+}
+```
+
+#### Operations
+
+Use the `createAsyncThunk` function to declare asynchronous action generators
+and execute HTTP requests. Use `createSlice` to process actions and change data
+in the Redux state.
+
+Declare the following operations:
+
+- `fetchContacts`: getting an array of contacts (GET method) by request. The
+  basic action type is "contacts/fetchAll".
+- `addContact`: adding a contact (POST method). The basic action type is
+  "contacts/addContact".
+- `deleteContact`: deleting a contact (DELETE method). The basic action type is
+  "contacts/deleteContact".
